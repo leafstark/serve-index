@@ -190,7 +190,7 @@ serveIndex.html = function _html(req, res, files, next, dir, showUp, icons, path
 
     // sort file list
     if (sort === 'modified-date') {
-      fileList.sort((a, b) => b.stat.mtime.getTime() - a.stat.mtime.getTime());
+      fileList.sort((a, b) => sortByDotDot(a, b) || sortByIsDirectory(a, b) || b.stat.mtime.getTime() - a.stat.mtime.getTime());
     } else if (typeof sort === 'function') {
       fileList.sort(sort);
     } else {
@@ -232,7 +232,7 @@ serveIndex.json = function _json (req, res, files, next, dir, showUp, icons, pat
 
     // sort file list
     if (sort === 'modified-date') {
-      fileList.sort((a, b) => b.stat.mtime.getTime() - a.stat.mtime.getTime());
+      fileList.sort((a, b) => sortByDotDot(a, b) || sortByIsDirectory(a, b) || b.stat.mtime.getTime() - a.stat.mtime.getTime());
     } else if (typeof sort === 'function') {
       fileList.sort(sort);
     } else {
