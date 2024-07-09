@@ -8,6 +8,8 @@ Given that serve-index is no longer actively maintained, we are maintaining a ne
 [![Windows Build][appveyor-image]][appveyor-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
 
+  *Given that serve-index is no longer actively maintained, we are maintaining a new version here to meet other requirements. Option `Sort` is now supported. Please see below for detailed usage.*
+  
   Serves pages that contain directory listings for a given path.
 
 ## Install
@@ -17,7 +19,7 @@ This is a [Node.js](https://nodejs.org/en/) module available through the
 [`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
 
 ```sh
-$ npm install serve-index
+$ npm install @leaf-stark/serve-index
 ```
 
 ## API

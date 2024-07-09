@@ -190,7 +190,7 @@ serveIndex.html = function _html(req, res, files, next, dir, showUp, icons, path
 
     // sort file list
     if (sort === 'modified-date') {
-      fileList.sort((a, b) => b.stat.mtime.getTime() - a.stat.mtime.getTime());
+      fileList.sort((a, b) => sortByDotDot(a, b) || sortByIsDirectory(a, b) || b.stat.mtime.getTime() - a.stat.mtime.getTime());
     } else if (typeof sort === 'function') {
       fileList.sort(sort);
     } else {
@@ -232,7 +232,7 @@ serveIndex.json = function _json (req, res, files, next, dir, showUp, icons, pat
 
     // sort file list
     if (sort === 'modified-date') {
-      fileList.sort((a, b) => b.stat.mtime.getTime() - a.stat.mtime.getTime());
+      fileList.sort((a, b) => sortByDotDot(a, b) || sortByIsDirectory(a, b) || b.stat.mtime.getTime() - a.stat.mtime.getTime());
     } else if (typeof sort === 'function') {
       fileList.sort(sort);
     } else {
@@ -259,7 +259,7 @@ serveIndex.plain = function _plain (req, res, files, next, dir, showUp, icons, p
 
     // sort file list
     if (sort === 'modified-date') {
-      fileList.sort((a, b) => b.stat.mtime.getTime() - a.stat.mtime.getTime());
+      fileList.sort((a, b) => sortByDotDot(a, b) || sortByIsDirectory(a, b) || b.stat.mtime.getTime() - a.stat.mtime.getTime());
     } else if (typeof sort === 'function') {
       fileList.sort(sort);
     } else {
@@ -355,6 +355,20 @@ function createHtmlRender(template) {
       callback(null, body);
     });
   };
+}
+
+// Helper function to sort ".." to the top
+function sortByDotDot(a, b) {
+  if (a.name === '..' || b.name === '..') {
+    return a.name === b.name ? 0
+      : a.name === '..' ? -1 : 1;
+  }
+  return 0;
+}
+
+// Helper function to sort by directory first
+function sortByIsDirectory(a, b) {
+  return Number(b.stat && b.stat.isDirectory()) - Number(a.stat && a.stat.isDirectory());
 }
 
 /**
