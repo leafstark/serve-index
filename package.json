@@ -1,7 +1,7 @@
 {
   "name": "serve-index-next",
   "description": "Serve directory listings",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "author": "leafstark",
   "license": "MIT",
   "repository": "leafstark/serve-index",
