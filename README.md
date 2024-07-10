@@ -1,6 +1,4 @@
-Given that serve-index is no longer actively maintained, we are maintaining a new version here to meet other requirements.
-
-# serve-index
+# serve-index-next
 
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
