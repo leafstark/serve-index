@@ -96,7 +96,7 @@ Optional. Specifies how files are sorted. Can be one of the following:
 
   * `name` Sorts files alphabetically by name (default).
   * `modified-date` Sorts files by modified date, with the most recent files first.
-  * Custom comparison function: You can also provide a custom comparison function that accepts two `fs.Stats` objects and return a negative number if the first object should come before the second, 0 if they are equal, and a positive number if the first object should come after the second.
+  * Custom comparison function: You can also provide a custom comparison function `sort(a, b)` that accepts two `fs.Stats` objects and return a negative number if the first object should come before the second, 0 if they are equal, and a positive number if the first object should come after the second.
 
 
 ## Examples

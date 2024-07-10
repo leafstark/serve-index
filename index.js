@@ -190,13 +190,13 @@ serveIndex.html = function _html(req, res, files, next, dir, showUp, icons, path
 
     // sort file list
     if (sort === 'modified-date') {
-      fileList.sort((a, b) => sortByDotDot(a, b) || sortByIsDirectory(a, b) || b.stat.mtime.getTime() - a.stat.mtime.getTime());
+      fileList.sort(sortByModifiedDate);
     } else if (typeof sort === 'function') {
       fileList.sort(sort);
     } else {
       fileList.sort(fileSort);
     }
-    
+
 
     // read stylesheet
     fs.readFile(stylesheet, 'utf8', function (err, style) {
@@ -232,7 +232,7 @@ serveIndex.json = function _json (req, res, files, next, dir, showUp, icons, pat
 
     // sort file list
     if (sort === 'modified-date') {
-      fileList.sort((a, b) => sortByDotDot(a, b) || sortByIsDirectory(a, b) || b.stat.mtime.getTime() - a.stat.mtime.getTime());
+      fileList.sort(sortByModifiedDate);
     } else if (typeof sort === 'function') {
       fileList.sort(sort);
     } else {
@@ -259,7 +259,7 @@ serveIndex.plain = function _plain (req, res, files, next, dir, showUp, icons, p
 
     // sort file list
     if (sort === 'modified-date') {
-      fileList.sort((a, b) => sortByDotDot(a, b) || sortByIsDirectory(a, b) || b.stat.mtime.getTime() - a.stat.mtime.getTime());
+      fileList.sort(sortByModifiedDate);
     } else if (typeof sort === 'function') {
       fileList.sort(sort);
     } else {
@@ -369,6 +369,10 @@ function sortByDotDot(a, b) {
 // Helper function to sort by directory first
 function sortByIsDirectory(a, b) {
   return Number(b.stat && b.stat.isDirectory()) - Number(a.stat && a.stat.isDirectory());
+}
+
+function sortByModifiedDate(a,b) {
+  return sortByDotDot(a, b) || sortByIsDirectory(a, b) || (b.stat.mtime.getTime() - a.stat.mtime.getTime())
 }
 
 /**
